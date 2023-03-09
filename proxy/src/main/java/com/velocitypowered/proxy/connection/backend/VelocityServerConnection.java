@@ -144,7 +144,7 @@ public class VelocityServerConnection implements MinecraftConnectionAssociation,
         .append('\0')
         .append(getPlayerRemoteAddressAsString())
         .append('\0')
-        .append(proxyPlayer.getGameProfile().getUndashedId())
+        .append(proxyPlayer.getUUIDFromMojangAPI())
         .append('\0');
     GENERAL_GSON
         .toJson(propertiesTransform.apply(proxyPlayer.getGameProfile().getProperties()), data);
@@ -196,7 +196,7 @@ public class VelocityServerConnection implements MinecraftConnectionAssociation,
     mc.setState(StateRegistry.LOGIN);
     if (proxyPlayer.getIdentifiedKey() == null
         && proxyPlayer.getProtocolVersion().compareTo(ProtocolVersion.MINECRAFT_1_19_3) >= 0) {
-      mc.delayedWrite(new ServerLogin(proxyPlayer.getUsername(), proxyPlayer.getUniqueId()));
+      mc.delayedWrite(new ServerLogin(proxyPlayer.getUsername(), proxyPlayer.getUUIDFromMojangAPI()));
     } else {
       mc.delayedWrite(new ServerLogin(proxyPlayer.getUsername(), proxyPlayer.getIdentifiedKey()));
     }

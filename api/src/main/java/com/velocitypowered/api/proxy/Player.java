@@ -7,6 +7,7 @@
 
 package com.velocitypowered.api.proxy;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.event.player.PlayerResourcePackStatusEvent;
 import com.velocitypowered.api.proxy.crypto.KeyIdentifiable;
@@ -19,11 +20,20 @@ import com.velocitypowered.api.proxy.player.TabList;
 import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.util.GameProfile;
 import com.velocitypowered.api.util.ModInfo;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+
+import com.velocitypowered.api.util.UuidUtils;
 import net.kyori.adventure.identity.Identified;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.key.Keyed;
@@ -266,4 +276,41 @@ public interface Player extends
    * @return the player's client brand
    */
   @Nullable String getClientBrand();
+
+  /**
+   * Check if the player is premium using the <a href="https://api.mojang.com/users/profiles/minecraft/[name]">Mojang's api </a>
+   * @return true if the player is premium
+   */
+  default boolean isPremium() {
+    try {
+      URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + getUsername());
+      BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+      String line = in.lines()
+              .collect(Collectors.joining(""));
+      return !(line.equals(""));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Get the player uuid from the <a href="https://api.mojang.com/users/profiles/minecraft/[name]">Mojang's api </a> if the player is premium, else it will return the normal uuid using the getUniqueId function
+   * @return the uuid of the player
+   */
+  default UUID getUUIDFromMojangAPI(){
+    try {
+      ObjectMapper mapper = new ObjectMapper();
+      URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + getUsername());
+      BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+      String line = in.lines()
+              .collect(Collectors.joining());
+      if(line.equals("")){
+        return getUniqueId();
+      }else{
+        return UuidUtils.fromUndashed(mapper.readValue(line, ApiProfile.class).id);
+      }
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
 }

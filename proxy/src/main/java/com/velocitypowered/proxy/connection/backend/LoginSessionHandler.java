@@ -17,13 +17,16 @@
 
 package com.velocitypowered.proxy.connection.backend;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.velocitypowered.api.event.player.ServerLoginPluginMessageEvent;
 import com.velocitypowered.api.network.ProtocolVersion;
 import com.velocitypowered.api.proxy.crypto.IdentifiedKey;
 import com.velocitypowered.api.proxy.messages.MinecraftChannelIdentifier;
+import com.velocitypowered.api.util.UuidUtils;
 import com.velocitypowered.proxy.VelocityServer;
 import com.velocitypowered.proxy.config.PlayerInfoForwarding;
 import com.velocitypowered.proxy.config.VelocityConfiguration;
+import com.velocitypowered.api.proxy.ApiProfile;
 import com.velocitypowered.proxy.connection.MinecraftConnection;
 import com.velocitypowered.proxy.connection.MinecraftSessionHandler;
 import com.velocitypowered.proxy.connection.VelocityConstants;
@@ -42,6 +45,11 @@ import com.velocitypowered.proxy.util.except.QuietRuntimeException;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufUtil;
 import io.netty.buffer.Unpooled;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.CompletableFuture;
@@ -207,14 +215,14 @@ public class LoginSessionHandler implements MinecraftSessionHandler {
     return VelocityConstants.MODERN_FORWARDING_DEFAULT;
   }
 
-  private static ByteBuf createForwardingData(byte[] hmacSecret, String address,
-      ConnectedPlayer player, int requestedVersion) {
+  private static ByteBuf createForwardingData(byte[] hmacSecret, String address, ConnectedPlayer player, int requestedVersion) {
     ByteBuf forwarded = Unpooled.buffer(2048);
     try {
       int actualVersion = findForwardingVersion(requestedVersion, player);
 
       ProtocolUtils.writeVarInt(forwarded, actualVersion);
       ProtocolUtils.writeString(forwarded, address);
+
       ProtocolUtils.writeUuid(forwarded, player.getGameProfile().getId());
       ProtocolUtils.writeString(forwarded, player.getGameProfile().getName());
       ProtocolUtils.writeProperties(forwarded, player.getGameProfile().getProperties());

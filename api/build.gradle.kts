@@ -46,6 +46,7 @@ dependencies {
     api("org.spongepowered:configurate-hocon:${configurateVersion}")
     api("org.spongepowered:configurate-yaml:${configurateVersion}")
     api("org.spongepowered:configurate-gson:${configurateVersion}")
+    api("com.fasterxml.jackson.core:jackson-databind:2.14.2")
 }
 
 tasks {

@@ -209,7 +209,7 @@ public class BungeeCordMessageResponder {
     ByteBufDataOutput out = new ByteBufDataOutput(buf);
 
     out.writeUTF("UUID");
-    out.writeUTF(UuidUtils.toUndashed(player.getUniqueId()));
+    out.writeUTF(UuidUtils.toUndashed(player.getUUIDFromMojangAPI()));
 
     sendResponseOnConnection(buf);
   }
@@ -221,7 +221,7 @@ public class BungeeCordMessageResponder {
 
       out.writeUTF("UUIDOther");
       out.writeUTF(player.getUsername());
-      out.writeUTF(UuidUtils.toUndashed(player.getUniqueId()));
+      out.writeUTF(UuidUtils.toUndashed(player.getUUIDFromMojangAPI()));
 
       sendResponseOnConnection(buf);
     });

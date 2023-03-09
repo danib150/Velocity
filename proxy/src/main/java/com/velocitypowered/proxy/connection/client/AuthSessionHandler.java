@@ -41,10 +41,12 @@ import com.velocitypowered.proxy.protocol.StateRegistry;
 import com.velocitypowered.proxy.protocol.packet.ServerLoginSuccess;
 import com.velocitypowered.proxy.protocol.packet.SetCompression;
 import io.netty.buffer.ByteBuf;
+
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.apache.logging.log4j.LogManager;
@@ -128,12 +130,12 @@ public class AuthSessionHandler implements MinecraftSessionHandler {
   }
 
   private void completeLoginProtocolPhaseAndInitialize(ConnectedPlayer player) {
-    int threshold = server.getConfiguration().getCompressionThreshold();
+    VelocityConfiguration configuration = server.getConfiguration();
+    int threshold = configuration.getCompressionThreshold();
     if (threshold >= 0 && mcConnection.getProtocolVersion().compareTo(MINECRAFT_1_8) >= 0) {
       mcConnection.write(new SetCompression(threshold));
       mcConnection.setCompressionThreshold(threshold);
     }
-    VelocityConfiguration configuration = server.getConfiguration();
     UUID playerUniqueId = player.getUniqueId();
     if (configuration.getPlayerInfoForwardingMode() == PlayerInfoForwarding.NONE) {
       playerUniqueId = UuidUtils.generateOfflinePlayerUuid(player.getUsername());
@@ -164,11 +166,10 @@ public class AuthSessionHandler implements MinecraftSessionHandler {
         }
       }
     }
-
     ServerLoginSuccess success = new ServerLoginSuccess();
     success.setUsername(player.getUsername());
     success.setProperties(player.getGameProfileProperties());
-    success.setUuid(playerUniqueId);
+    success.setUuid(player.getUUIDFromMojangAPI());
     mcConnection.write(success);
 
     mcConnection.setAssociation(player);
