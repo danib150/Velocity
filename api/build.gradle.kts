@@ -1,7 +1,11 @@
 plugins {
     `java-library`
     `maven-publish`
+    `java`
 }
+
+group = "com.github.danib150"
+version = "3.0.0"
 
 java {
     withJavadocJar()
@@ -63,11 +67,11 @@ tasks {
         o.source = "8"
 
         o.links(
-                "https://www.slf4j.org/apidocs/",
-                "https://guava.dev/releases/$guavaVersion/api/docs/",
-                "https://google.github.io/guice/api-docs/$guiceVersion/javadoc/",
-                "https://docs.oracle.com/en/java/javase/11/docs/api/",
-                "https://jd.advntr.dev/api/$adventureVersion/"
+            "https://www.slf4j.org/apidocs/",
+            "https://guava.dev/releases/$guavaVersion/api/docs/",
+            "https://google.github.io/guice/api-docs/$guiceVersion/javadoc/",
+            "https://docs.oracle.com/en/java/javase/11/docs/api/",
+            "https://jd.advntr.dev/api/$adventureVersion/"
         )
 
         // Disable the crazy super-strict doclint tool in Java 8
@@ -78,4 +82,21 @@ tasks {
             o.addBooleanOption("-no-module-directories", true)
         }
     }
+    repositories {
+        maven {
+            url = uri("https://jitpack.io")
+        }
+    }
+    publishing {
+        publications {
+            create<MavenPublication>("maven") {
+                groupId = "com.github.danib150"
+                artifactId = "velocity-api"
+                version = "v1.0"
+            }
+        }
+    }
+
+
 }
+
