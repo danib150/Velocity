@@ -1,5 +1,4 @@
 import com.velocitypowered.script.VelocityCheckstylePlugin
-import com.velocitypowered.script.VelocityPublishPlugin
 import com.velocitypowered.script.VelocitySpotlessPlugin
 
 plugins {
@@ -17,7 +16,6 @@ subprojects {
     apply<JavaLibraryPlugin>()
 
     apply<VelocityCheckstylePlugin>()
-    apply<VelocityPublishPlugin>()
     apply<VelocitySpotlessPlugin>()
 
     java {

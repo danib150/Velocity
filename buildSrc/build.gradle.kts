@@ -28,10 +28,6 @@ gradlePlugin {
             id = "velocity-spotless"
             implementationClass = "com.velocitypowered.script.VelocitySpotlessPlugin"
         }
-        register("velocity-publish") {
-            id = "velocity-publish"
-            implementationClass = "com.velocitypowered.script.VelocityPublishPlugin"
-        }
     }
 }
 
