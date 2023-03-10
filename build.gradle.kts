@@ -30,10 +30,14 @@ subprojects {
         mavenCentral()
         maven("https://s01.oss.sonatype.org/content/repositories/snapshots/") // adventure
         maven("https://repo.papermc.io/repository/maven-public/")
+        maven("https://jitpack.io")
+
     }
     dependencies {
         testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
     }
+
+
 
     tasks {
         test {
