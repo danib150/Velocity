@@ -1,6 +1,6 @@
 # Velocity
 
-[![](https://jitci.com/gh/danib150/Velocity/svg)](https://jitci.com/gh/danib150/Velocity)
+[![](https://jitpack.io/v/danib150/Velocity.svg)](https://jitpack.io/#danib150/Velocity)
 [![Join our Discord](https://img.shields.io/discord/289587909051416579.svg?logo=discord&label=)](https://discord.gg/RDZxsnZRVf)
 
 Velocity fork designed for premium client-side uuid.
