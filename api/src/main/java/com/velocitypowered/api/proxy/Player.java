@@ -278,7 +278,8 @@ public interface Player extends
   @Nullable String getClientBrand();
 
   /**
-   * Check if the player is premium using the <a href="https://api.mojang.com/users/profiles/minecraft/[name]">Mojang's api </a>
+   * Check if the player is premium using
+   * the <a href="https://api.mojang.com/users/profiles/minecraft/somename">Mojang's api </a>
    * @return true if the player is premium
    */
   default boolean isPremium() {
@@ -294,7 +295,9 @@ public interface Player extends
   }
 
   /**
-   * Get the player uuid from the <a href="https://api.mojang.com/users/profiles/minecraft/[name]">Mojang's api </a> if the player is premium, else it will return the normal uuid using the getUniqueId function
+   * Get the player uuid from
+   * the <a href="https://api.mojang.com/users/profiles/minecraft/somename">Mojang's api </a> if the player is premium,
+   * else it will return the normal uuid using the getUniqueId function
    * @return the uuid of the player
    */
   default UUID getUUIDFromMojangAPI(){

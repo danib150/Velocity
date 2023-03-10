@@ -27,7 +27,6 @@ val configurateVersion: String by project.extra
 dependencies {
     api("com.google.code.gson:gson:$gsonVersion")
     api("com.google.guava:guava:$guavaVersion")
-    api("com.github.jitpack:gradle-simple:1.0")
 
     // DEPRECATED: Will be removed in Velocity Polymer
     api("com.moandjiezana.toml:toml4j:0.7.2")
