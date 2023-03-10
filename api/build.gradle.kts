@@ -1,9 +1,23 @@
 plugins {
     `java-library`
     `maven-publish`
-    `java`
+}
+repositories {
+    maven {
+        url = uri("https://jitpack.io")
+    }
 }
 
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "com.github.danib150"
+            artifactId = "velocity-api"
+            version = "v1.0"
+            from(components["java"])
+        }
+    }
+}
 group = "com.github.danib150"
 version = "3.0.0"
 
@@ -80,20 +94,6 @@ tasks {
         // Remove "undefined" from search paths when generating javadoc for a non-modular project (JDK-8215291)
         if (JavaVersion.current() >= JavaVersion.VERSION_1_9 && JavaVersion.current() < JavaVersion.VERSION_12) {
             o.addBooleanOption("-no-module-directories", true)
-        }
-    }
-    repositories {
-        maven {
-            url = uri("https://jitpack.io")
-        }
-    }
-    publishing {
-        publications {
-            create<MavenPublication>("maven") {
-                groupId = "com.github.danib150"
-                artifactId = "velocity-api"
-                version = "v1.0"
-            }
         }
     }
 

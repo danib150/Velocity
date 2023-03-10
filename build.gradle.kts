@@ -13,6 +13,7 @@ allprojects {
     version = "3.2.0-SNAPSHOT"
 }
 
+
 subprojects {
     apply<JavaLibraryPlugin>()
 
