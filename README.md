@@ -1,24 +1,12 @@
 # Velocity
 
-[![Build Status](https://img.shields.io/jenkins/s/https/ci.velocitypowered.com/job/velocity.svg)](https://ci.velocitypowered.com/job/velocity-3.0.0/)
-[![Join our Discord](https://img.shields.io/discord/289587909051416579.svg?logo=discord&label=)](https://discord.gg/papermc)
+[![](https://jitci.com/gh/danib150/Velocity/svg)](https://jitci.com/gh/danib150/Velocity)
+[![Join our Discord](https://img.shields.io/discord/289587909051416579.svg?logo=discord&label=)](https://discord.gg/RDZxsnZRVf)
 
-A Minecraft server proxy with unparalleled server support, scalability,
-and flexibility.
+Velocity fork designed for premium client-side uuid.
 
 Velocity is licensed under the GPLv3 license.
 
-## Goals
-
-* A codebase that is easy to dive into and consistently follows best practices
-  for Java projects as much as reasonably possible.
-* High performance: handle thousands of players on one proxy.
-* A new, refreshing API built from the ground up to be flexible and powerful
-  whilst avoiding design mistakes and suboptimal designs from other proxies.
-* First-class support for Paper, Sponge, and Forge. (Other implementations
-  may work, but we make every endeavor to support these server implementations
-  specifically.)
-  
 ## Building
 
 Velocity is built with [Gradle](https://gradle.org). We recommend using the
