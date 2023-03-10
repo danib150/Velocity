@@ -3,12 +3,13 @@ import com.velocitypowered.script.VelocitySpotlessPlugin
 
 plugins {
     `java-library`
+    id("maven-publish")
 }
 
 val junitVersion: String by project.extra
 
 allprojects {
-    group = "com.velocitypowered"
+    group = "com.github.danib150"
     version = "3.2.0-SNAPSHOT"
 }
 
