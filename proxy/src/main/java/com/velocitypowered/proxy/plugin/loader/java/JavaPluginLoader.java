@@ -24,6 +24,7 @@ import com.velocitypowered.api.plugin.InvalidPluginException;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.PluginDescription;
 import com.velocitypowered.api.plugin.ap.SerializedPluginDescription;
+import com.velocitypowered.api.plugin.config.Config;
 import com.velocitypowered.api.plugin.meta.PluginDependency;
 import com.velocitypowered.api.proxy.ProxyServer;
 import com.velocitypowered.proxy.VelocityServer;
@@ -105,8 +106,9 @@ public class JavaPluginLoader implements PluginLoader {
     if (!source.isPresent()) {
       throw new IllegalArgumentException("No path in plugin description");
     }
+    Config config = new Config(baseDirectory);
 
-    return new VelocityPluginModule(server, javaDescription, container, baseDirectory);
+    return new VelocityPluginModule(server, javaDescription, container, baseDirectory, config);
   }
 
   @Override

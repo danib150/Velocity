@@ -23,6 +23,7 @@ import com.google.inject.Scopes;
 import com.velocitypowered.api.plugin.PluginContainer;
 import com.velocitypowered.api.plugin.PluginDescription;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
+import com.velocitypowered.api.plugin.config.Config;
 import com.velocitypowered.api.proxy.ProxyServer;
 import java.nio.file.Path;
 import org.slf4j.Logger;
@@ -34,13 +35,15 @@ class VelocityPluginModule implements Module {
   private final JavaVelocityPluginDescription description;
   private final PluginContainer pluginContainer;
   private final Path basePluginPath;
+  private final Config config;
 
   VelocityPluginModule(ProxyServer server, JavaVelocityPluginDescription description,
-      PluginContainer pluginContainer, Path basePluginPath) {
+      PluginContainer pluginContainer, Path basePluginPath, Config config) {
     this.server = server;
     this.description = description;
     this.pluginContainer = pluginContainer;
     this.basePluginPath = basePluginPath;
+    this.config = config;
   }
 
   @Override
@@ -52,5 +55,6 @@ class VelocityPluginModule implements Module {
         .toInstance(basePluginPath.resolve(description.getId()));
     binder.bind(PluginDescription.class).toInstance(description);
     binder.bind(PluginContainer.class).toInstance(pluginContainer);
+    binder.bind(Config.class).toInstance(config);
   }
 }
